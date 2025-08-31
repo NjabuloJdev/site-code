@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>RAHMANI-XMD PAIRING SITE</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
       display: flex; 
@@ -12,108 +13,195 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
-      background-image:  url("https://files.catbox.moe/8woj20.jpeg"); /* set the background image */
-    }
-
-    .btn {
-      --color: #e5f5f1;
-      --color2: rgb(0, 0, 0);
-      width: 200px;
-      padding: 0.8em 1.75em;
-      background-color: Green;
-      border-radius: 6px;
-      border: .3px solid var(--color);
-      transition: .5s;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      z-index: 1;
-      font-weight: 300;
-      font-size: 17px;
+      background-image:  url("https://files.catbox.moe/8woj20.jpeg"); 
+      background-size: cover;
+      background-position: center;
       font-family: 'Roboto', 'Segoe UI', sans-serif;
-      text-transform: uppercase;
-      color: var(--color);
-      margin-bottom: 24px;
     }
 
-    .btn::after, .btn::before {
-      content: '';
-      display: block;
-      height: 100%;
-      width: 100%;
-      transform: skew(90deg) translate(-50%, -50%);
-      position: absolute;
-      inset: 50%;
-      left: 25%;
-      z-index: -1;
-      transition: .5s ease-out;
-      background-color: var(--color);
+    .tool {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin: 20px;
+      width: 200px;
+      text-align: center;
+      cursor: pointer;
     }
 
-    .btn::before {
-      top: -50%;
-      left: -25%;
-      transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
-    }
-
-    .btn:hover::before {
-      transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
-    }
-
-    .btn:hover::after {
-      transform: skew(45deg) translate(-50%, -50%);
-    }
-
-    .btn:hover {
-      color: var(--color2);
-    }
-
-    .btn:active {
-      filter: brightness(.7);
-      transform: scale(.98);
-    }
-
-    #battery {
+    .tool i {
       font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .tool h3 {
       font-weight: bold;
-      margin-bottom: 24px;
+      margin-bottom: 10px;
+    }
+
+    .muted {
+      color: #ccc;
+    }
+
+    .music-player {
+      margin-top: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .progress {
+      width: 200px;
+      height: 6px;
+      background-color: #ccc;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background-color: #4CAF50;
+      transition: width 0.1s linear;
     }
   </style>
 </head>
 <body>
 
-  <div id="battery"></div>
+  <div class="status">
+    <span id="battery">Battery: --%</span>
+    <span id="ip">IP: Loading...</span>
+  </div>
 
-  <button onclick="window.open(`https://github.com/Qartde/RAHMANI-XMD`)" class="btn">follow on GitHub</button>
-  <button onclick="window.open(`/pair`)" class="btn">pair code</button>
-  <button onclick="window.open(`https://github.com/Qartde/RAHMANI-XMD`)" class="btn">github</button>
-  <button onclick="window.open(`https://wa.me/255693629079`)" class="btn">Contact Me</button>
-  <button onclick="window.open(`https://dashboard.heroku.com/new?template=https://github.com/RAHMANI-XMD`)" class="btn">Heroku deploy</button>
-  <button onclick="window.open(`https://whatsapp.com/channel/0029VatokI45EjxufALmY32X`)" class="btn">Wa Channel</button>
-  <button onclick="deployWithPairKey()" class="btn">Deploy with Pair Key</button>
-  <button onclick="payNow()" class="btn">Pay Now</button>
+  <div class="tools">
+    <div class="tool" onclick="window.open(`https://github.com/Qartde/RAHMANI-XMD`)">
+      <i class="fab fa-github"></i>
+      <h3>FOLLOW ON GITHUB</h3>
+      <p class="muted">View my GitHub profile</p>
+    </div>
+    <div class="tool" onclick="window.open(`/pair`)">
+      <i class="fas fa-link"></i>
+      <h3>PAIR CODE</h3>
+      <p class="muted">Connect to WhatsApp</p>
+    </div>
+    <div class="tool" onclick="window.open(`https://wa.me/255693629079`)">
+      <i class="fas fa-headset"></i>
+      <h3>CONTACT ME</h3>
+      <p class="muted">Developer Support</p>
+    </div>
+    <div class="tool" onclick="window.open(`https://dashboard.heroku.com/new?template=https://github.com/RAHMANI-XMD`)">
+      <i class="fas fa-cloud"></i>
+      <h3>HEROKU DEPLOY</h3>
+      <p class="muted">Deploy to Heroku</p>
+    </div>
+    <div class="tool" onclick="window.open(`https://whatsapp.com/channel/0029VatokI45EjxufALmY32X`)">
+      <i class="fas fa-broadcast-tower"></i>
+      <h3>WA CHANNEL</h3>
+      <p class="muted">Updates & News</p>
+    </div>
+  </div>
+
+  <div class="music-player">
+    <h2>NOW PLAYING</h2>
+    <div class="track">
+      <div>
+        <strong>vw-golf ANTHEM</strong>
+        <div class="muted">Davincs Team</div>
+      </div>
+      <div class="controls">
+        <button id="play-pause-btn" onclick="togglePlay('audio1')"><i class="fas fa-play"></i> PLAY</button>
+        <div class="progress">
+          <div class="progress-fill" id="progress1"></div>
+        </div>
+        <span class="time" id="time1">0:00</span>
+        <span class="time" id="duration1">0:00</span>
+      </div>
+      <audio id="audio1" src="https://files.catbox.moe/xci982.mp3"></audio>
+    </div>
+  </div>
 
   <script>
-    // Get battery percentage
-    navigator.getBattery().then(battery => {
-      const batteryPercentage = battery.level * 100;
-      document.getElementById('battery').innerHTML = `Battery: ${batteryPercentage}%`;
-    });
-
-    // Deploy with pair key function
-    function deployWithPairKey() {
-      // Add your deployment logic here
-      alert('Deploying with pair key...');
+    const updateBattery = async () => {
+      if (navigator.getBattery) {
+        try {
+          const battery = await navigator.getBattery();
+          const setBattery = () => {
+            const batteryPercent = Math.round(battery.level * 100);
+            document.getElementById('battery').innerText = `Battery: ${batteryPercent}%`;
+          };
+          battery.addEventListener('levelchange', setBattery);
+          setBattery();
+        } catch (error) {
+          console.error('Battery API error:', error);
+        }
+      }
     }
 
-    // Pay now function
-    function payNow() {
-      // Add your payment logic here
-      const song = new Audio('https://example.com/payment-song.mp3'); // Replace with your song URL
-      song.play();
-      alert('Payment processing...');
+    const fetchIP = async () => {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        document.getElementById('ip').innerText = `IP: ${data.ip}`;
+      } catch {
+        document.getElementById('ip').innerText = 'IP: Offline';
+      }
     }
+
+    const togglePlay = (id) => {
+      const audio = document.getElementById(id);
+      const progress = document.getElementById('progress1');
+      const time = document.getElementById('time1');
+      const duration = document.getElementById('duration1');
+      const button = document.getElementById('play-pause-btn');
+
+      if (audio.paused) {
+        audio.play();
+        button.innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+
+        audio.ontimeupdate = () => {
+          const percent = (audio.currentTime / audio.duration) * 100;
+          progress.style.width = percent + '%';
+
+          const minutes = Math.floor(audio.currentTime / 60);
+          const seconds = Math.floor(audio.currentTime % 60);
+          time.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+        };
+
+        audio.onloadedmetadata = () => {
+          const minutes = Math.floor(audio.duration / 60);
+          const seconds = Math.floor(audio.duration % 60);
+          duration.textContent = `${minutes}:${String(seconds).padStart(2, '0')}`;
+        };
+
+        audio.onended = () => {
+          progress.style.width = '0%';
+          time.textContent = '0:00';
+          button.innerHTML = '<i class="fas fa-play"></i> PLAY';
+        };
+      } else {
+        audio.pause();
+        button.innerHTML = '<i class="fas fa-play"></i> PLAY';
+      }
+    }
+
+    updateBattery();
+    fetchIP();
   </script>
-
 </body>
-</html>
+  </html>
