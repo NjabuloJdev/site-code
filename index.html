@@ -82,22 +82,40 @@
     }
 
     .progress-fill {
-      width: 0%;
+      width: 0.0%;
       height: 100%;
       background-color: #4CAF50;
       transition: width 0.1s linear;
+    }
+
+    .spinner-border {
+      display: inline-block;
+      width: 2rem;
+      height: 2rem;
+      vertical-align: text-bottom;
+      border: .25em solid #ff69b4; /* Pink color */
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: spinner-border .75s linear infinite;
+      animation: spinner-border .75s linear infinite;
+    }
+
+    @keyframes spinner-border {
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
 <body>
 
-  <video autoplay loop id="background-video">
+  <video autoplay loop playsinline muted id="background-video">
     <source src="https://files.catbox.moe/bce7t8.mp4" type="video/mp4">
   </video>
 
   <script>
     const video = document.getElementById('background-video');
-    video.volume = 0.2; // Set volume to 20% (range: 0.0 to 1.0)
+    video.volume = 0.2;
   </script>
 
   <div style="text-align: center; margin-bottom: 40px;">
@@ -110,30 +128,13 @@
   </div>
 
   <div class="tools">
-    <div class="tool" onclick="window.open(`https://github.com/Qartde/RAHMANI-XMD`)">
-      <i class="fab fa-github"></i>
-      <h3>FOLLOW ON GITHUB</h3>
-      <p class="muted">View my GitHub profile</p>
-    </div>
     <div class="tool" onclick="window.open('/pair')">
+      <div class="spinner-border" role="status" style="margin-bottom: 10px;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
       <i class="fas fa-link"></i>
       <h3>PAIR CODE</h3>
       <p class="muted">Connect to WhatsApp</p>
-    </div>
-    <div class="tool" onclick="window.open(`https://wa.me/255693629079`)">
-      <i class="fas fa-headset"></i>
-      <h3>CONTACT ME</h3>
-      <p class="muted">Developer Support</p>
-    </div>
-    <div class="tool" onclick="window.open(`https://dashboard.heroku.com/new?template=https://github.com/RAHMANI-XMD`)">
-      <i class="fas fa-cloud"></i>
-      <h3>HEROKU DEPLOY</h3>
-      <p class="muted">Deploy to Heroku</p>
-    </div>
-    <div class="tool" onclick="window.open(`https://whatsapp.com/channel/0029VatokI45EjxufALmY32X`)">
-      <i class="fas fa-broadcast-tower"></i>
-      <h3>WA CHANNEL</h3>
-      <p class="muted">Updates & News</p>
     </div>
   </div>
 
@@ -224,4 +225,4 @@
     fetchIP();
   </script>
 </body>
-      </html>
+  </html>
