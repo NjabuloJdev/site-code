@@ -94,4 +94,3 @@ Repository available at our channel`
 	return await FLASH_MD_QR_CODE()
 });
 module.exports = router
-    

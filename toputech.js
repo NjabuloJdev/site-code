@@ -24,4 +24,3 @@ Topu-Qr-Scanner is Live
 })
 
 module.exports = app
-  
