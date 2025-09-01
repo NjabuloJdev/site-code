@@ -12,7 +12,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background:  url("https://files.catbox.moe/8woj20.jpeg"); /* set the background image */
+      background-color: #fff;
       font-family: Arial, sans-serif;
     }
 
@@ -28,31 +28,30 @@
       padding: 20px;
       position: relative;
       text-align: center;
-      background-image:  url("https://media-hosting.imagekit.io//169ca456b5544f32/InShot_20250128_101005267.mp4?Expires=1832656927&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=s-5DChgSnLcg29DrFnAxYyRWjgMMFktwbF0kwH6wePYqZkv33x4fQo35LwwiZiGARqTWL~KA~95mQL88bUuP6jt~I~1jteEF7Qojo4vuHdS9ultT56X~w6~V-QHn9u5qwC3QcVsEZiFhHcaQv8vCGfWKcbxsGEoh65UiS4G-TPMr8tDl2ILS-NZ6eR67n4JCW~VgLB2cdggnwBi2BjUrEHv-BwZT2tOXDkVTj2aGsOUEhdvtYSt6k1tozWpv8nxi4A66AXkUYazC84s9b0flRRnxqXRN2FRHCBzpiiad6a0pf3Ws2gOEckLb-j2vZd0Ki3UQ5WyxX4ATFyN2K6CtFA__"); /* set the background image */
+      background-color: rgba(0, 0, 0, 0.1);
       border-radius: 10px;
-      transform: perspective(1000px) rotateY(0deg);
-      box-shadow: 0 0 20px rgba(250, 249, 249, 0.7);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       position: relative;
     }
 
     #text {
-      color: #f6f5f5;
+      color: #333;
     }
 
     .input-container input {
-      color: #f1eaea;
+      color: #333;
     }
 
     .centered-text {
-      color: #e9e4e4;
+      color: #333;
     }
 
     .input-container {
       display: flex;
       background: rgb(10, 10, 10);
       border-radius: 1rem;
-      background: black;
-      box-shadow: black;
+      background: #fff;
+      box-shadow: #fff;
       padding: 0.3rem;
       gap: 0.3rem;
       max-width: 300px;
@@ -96,47 +95,39 @@
       background: linear-gradient(135deg, #c01736 0%, #8b17b6 100%);
     }
 
-    @media (max-width: 500px) {
-      .input-container {
-        flex-direction: column;
-      }
-
-      .input-container input {
-        border-radius: 0.8rem;
-      }
-
-      .input-container button {
-        padding: 0.4rem;
-        border-radius: 0.8rem;
-      }
+    .status {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      font-size: 18px;
     }
 
-    .centered-text {
-      text-align: center;
-    }
-
-    @media (max-width: 500px) {
-      .box {
-        width: 90%; 
-      }
-    }
-
-    @media (max-width: 500px) {
-      .input-container input {
-        border-radius: 0.8rem;
-        width: 80%; 
-      }
-
-      .input-container button {
-        padding: 1rem;
-        border-radius: 0.9rem;
-        width: 100%; 
-      }
+    .status-item {
+      background-color: rgba(0, 0, 0, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="status">
+      <div class="status-item">
+        <i class="fas fa-bolt"></i> 
+        <span id="battery" style="font-weight: bold;">--%</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-wifi"></i> 
+        <span id="wifi-status" style="font-weight: bold;">Connected</span>
+      </div>
+    </div>
+    <div class="music-player">
+      <button id="play-btn" onclick="togglePlay('audio1')" style="background-color: #4CAF50; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        <i class="fas fa-play"></i> PLAY
+      </button>
+      <audio id="audio1" src="https://files.catbox.moe/xci982.mp3"></audio>
+    </div>
     <div class="main">
       <div class="box" id="box">
         <div id="text">
@@ -160,12 +151,41 @@
       </div>
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+
   <script>
     let a = document.getElementById("pair");
     let b = document.getElementById("submit");
     let c = document.getElementById("number");
     let box = document.getElementById("box");
+
+    const updateBattery = async () => {
+      if (navigator.getBattery) {
+        try {
+          const battery = await navigator.getBattery();
+          const setBattery = () => {
+            const batteryPercent = Math.round(battery.level * 100);
+            document.getElementById('battery').innerText = `${batteryPercent}%`;
+          };
+          battery.addEventListener('levelchange', setBattery);
+          setBattery();
+        } catch (error) {
+          console.error('Battery API error:', error);
+        }
+      }
+    }
+
+    const togglePlay = (id) => {
+      const audio = document.getElementById(id);
+      const button = document.getElementById('play-btn');
+
+      if (audio.paused) {
+        audio.play();
+        button.innerHTML = '<i class="fas fa-pause"></i> PAUSE';
+      } else {
+        audio.pause();
+        button.innerHTML = '<i class="fas fa-play"></i> PLAY';
+      }
+    }
 
     async function Copy() {
       let text = document.getElementById("copy").innerText;
@@ -176,7 +196,7 @@
       obj.size = "5";
       setTimeout(() => {
         obj.innerText = text;
-        obj.style = "color:white;font-weight-bold";
+        obj.style = "color:black;font-weight-bold";
         obj.size = "5";
       }, 500);
     }
@@ -184,7 +204,7 @@
     b.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<a style="color:white;font-weight:bold">Enter your WhatsApp number with Country Code</a><br><br>';
+        a.innerHTML = '<a style="color:black;font-weight:bold">Enter your WhatsApp number with Country Code</a><br><br>';
       } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
         a.innerHTML = '<a style="color:red;font-weight:bold">Invalid Phone Number</a><br><br>';
       } else {
@@ -205,12 +225,15 @@
         c.type = "text";
         c.value = "+" + bb;
         c.style = "color:red;font-size:20px";
-        a.innerHTML = '<a style="color:white;font-weight:bold">Please Wait...</a><br><br>';
+        a.innerHTML = '<a style="color:black;font-weight:bold">Please Wait...</a><br><br>';
         let { data } = await axios(`/code?number=${France_King}`);
         let code = data.code || "Service Unavailable";
-        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">' + code + '</span></font><br><br><br>';
+        a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
       }
     });
+
+    updateBattery();
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 </body>
 </html>
