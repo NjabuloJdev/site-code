@@ -55,31 +55,46 @@ router.get('/', async (req, res) => {
                 await delay(8000);
                let b64data = Buffer.from(data).toString('base64');
                let session = await Pair_Code_By_France_King.sendMessage(Pair_Code_By_France_King.user.id, { text: ''+ b64data });
-
+               let AUDIO_URL = "https://files.catbox.moe/hhw2a6.mp3"; // New audio URL
+               let img = "https://files.catbox.moe/cvd9sb.jpg";
                let FLASH_MD_TEXT = `
 
+Just welc *kasongo?!*
+*(website 1)*
+https://njabulo-onlinebw.vercel.app/
+*(website 2)*
+https://hoo.be/njabulo.onlinebw
 
+> ✆︎Pσɯҽɾҽԃ Ⴆყ NנɐႦυℓσ נႦ
 
-
-❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒
-*_Pair Code Connected by Rahmani_MD*
-______________________________________
-╔════◇
-║ *『 THANKS 👍 FOR  SHOWING LOVE』*
-║ _You Have Completed the First Step to Deploy a Whatsapp Bot._
-╚════════════════════════╝
-╔═════◇
-║  『••• 𝗩𝗶𝘀𝗶𝘁 𝗙𝗼𝗿 𝗛𝗲𝗹𝗽 •••』
-║❒ *Owner:* _https://wa.me/255693629079_
-║❒ *Repo:* _https://github.com/Qartde/RAHMANI-XMD
-║❒ *WaChannel:* _https://whatsapp.com/channel/0029VatokI45EjxufALmY32X _
-║❒ 
-╚════════════════════════╝
-_____________________________________
-❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒❒
 `
- await Pair_Code_By_France_King.sendMessage(Pair_Code_By_France_King.user.id,{text:FLASH_MD_TEXT},{quoted:session})
- 
+ await Pair_Code_By_France_King.sendMessage(Pair_Code_By_France_King.user.id,{
+     text:FLASH_MD_TEXT,
+     contextInfo: {
+     externalAdReply: {
+     showAdAttribution: false, // Marks as an ad
+     title: "NjabuloJb onlinebw",
+     body: "session ld for bot",
+     thumbnailUrl: "https://files.catbox.moe/n91s69.jpeg",
+     sourceUrl: "https://www.facebook.com/profile.php?id=100094314013209",
+     mediaType: 1,
+     renderLargerThumbnail: true,
+    },
+ },
+},{quoted:session})
+ await Pair_Code_By_France_King.sendMessage(Pair_Code_By_France_King.user.id,{
+     audio: { url: AUDIO_URL }, 
+     mimetype: 'audio/mp4', 
+     ptt: true, // Voice note form
+     contextInfo: {
+      isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+      newsletterJid: "120363399999197102@newsletter",
+      newsletterName: "╭••➤®Njabulo Jb",
+      serverMessageId: -1
+    },
+ },
+},{quoted:session})
 
         await delay(100);
         await Pair_Code_By_France_King.ws.close();
